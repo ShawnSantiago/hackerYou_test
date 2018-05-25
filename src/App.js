@@ -44,6 +44,25 @@ class App extends Component {
  
   render() {
     const { error, isLoaded, items } = this.state;
+    function handleClick() {
+      console.log(arguments)
+      arguments[1].preventDefault();
+      console.log('The link was clicked.');
+    }
+    const li = function (item) { 
+        return <li key={item.name} id={item.id} onClick={(e) => handleClick(item, e)}>
+                <div className="card_header">
+                  <h1>{item.name} </h1>
+                </div>
+                <div className="card_desc">
+                  <div className="card_image">
+                    <img src={item.image_thumb_url} />
+                  </div>
+                  <p> {item.tags} </p>
+                </div>
+              </li>
+            };
+
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
@@ -53,34 +72,10 @@ class App extends Component {
         if (item.is_seasonal) {
           if (!item.image_thumb_url) {
             item.image_thumb_url = "https://www.crafthounds.com/wp-content/uploads/2016/11/No-Image-Available.png"
-   
-            return (
-              <li key={item.name} id={item.id}>
-                <div className="card_header">
-                  <h1>{item.name} </h1>
-                </div>
-                <div className="card_desc">
-                  <div className="card_image">
-                     <img src={item.image_thumb_url} />
-                  </div>
-                  <p> {item.tags} </p>
-                </div>
-              </li>
-            );
+            return ( li(item) );
+            
           }else {
-             return (
-              <li key={item.name} id={item.id}>
-                <div className="card_header">
-                  <h1>{item.name} </h1>
-                </div>
-                <div className="card_desc">
-                  <div className="card_image">
-                     <img src={item.image_thumb_url} />
-                  </div>
-                  <p> {item.tags} </p>
-                </div>
-              </li>
-            );
+             return ( li(item) );
           }
         }
           
