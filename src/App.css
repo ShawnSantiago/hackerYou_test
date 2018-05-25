@@ -1,3 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Abril+Fatface|Open+Sans:400,700');
+
+h1,h2,h3,h4{
+  font-family: 'Abril Fatface', cursive;
+   -webkit-font-smoothing: antialiased;
+
+}
+p,span{
+  font-family: 'Open Sans', sans-serif;
+}
+
+
 .App {
   text-align: center;
 }
@@ -54,4 +66,7 @@
   padding: 10px 0;
   margin: 0 auto;
    vertical-align: middle;
+}
+#root ul li p{ 
+    text-transform: capitalize;
 }
