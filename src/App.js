@@ -8,7 +8,8 @@ class App extends Component {
     this.state = {
       error: null,
       isLoaded: false,
-      items: []
+      items: [],
+      stores:[]
     };
   }
 
@@ -61,8 +62,9 @@ class App extends Component {
       }
     }
     const in_store = (item) => {
-      console.log("hit")
-      fetch("http:// lcboapi.com/inventories/"+item.id, {
+   
+      console.log(item)
+      fetch("http://lcboapi.com/stores?product_id="+item, {
              method: 'GET', 
              mode: 'cors',
              headers: new Headers({
@@ -72,10 +74,15 @@ class App extends Component {
       .then(res => res.json())
       .then(
         (result) => {
-          console.log(result)
-          return result
+           const stores_item = result.result
+            const stores = stores_item.map(function(item){
+              return <li key={item.name}>{item.name}</li>
+            })
+             
+             
         }
       )
+     
     }
     const li = function (item) { 
       return <li key={item.name} id={item.id} onClick={(e) => handleClick(item, e)}>
@@ -87,7 +94,8 @@ class App extends Component {
                 </div>
               <div className="card_desc"> 
                 <p> {item.tags} </p>
-                <p>{in_store} </p>
+
+                <ul>{in_store(item.id)} </ul>
               </div>
             </li>
           };
