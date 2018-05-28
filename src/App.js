@@ -45,23 +45,52 @@ class App extends Component {
   render() {
     const { error, isLoaded, items } = this.state;
     function handleClick() {
-      console.log(arguments)
       arguments[1].preventDefault();
-      console.log('The link was clicked.');
+      const item_id = arguments[0].id;
+      const element = document.getElementById(item_id).children[2];
+      if (element.classList.contains('show') ) {
+        element.classList.remove('show');
+        element.classList.add('hide')
+      } 
+      else if (element.classList.contains('hide') ){
+         element.classList.remove('hide');
+         element.classList.add('show')
+      }
+      else {
+         element.classList.add('show')
+      }
+    }
+    const in_store = (item) => {
+      console.log("hit")
+      fetch("http:// lcboapi.com/inventories/"+item.id, {
+             method: 'GET', 
+             mode: 'cors',
+             headers: new Headers({
+             Authorization : "Token MDpkZWJiMjFhYS01ZWUyLTExZTgtODMzMC1jMzU2N2UzNmI4Yjc6cWtCdUxVcnRBVzJwYTNGckZ3YUJmUjN3Y3NHV3F6eDJGdkJU"
+        })
+      })
+      .then(res => res.json())
+      .then(
+        (result) => {
+          console.log(result)
+          return result
+        }
+      )
     }
     const li = function (item) { 
-        return <li key={item.name} id={item.id} onClick={(e) => handleClick(item, e)}>
-                <div className="card_header">
-                  <h1>{item.name} </h1>
+      return <li key={item.name} id={item.id} onClick={(e) => handleClick(item, e)}>
+              <div className="card_header">
+                <h1>{item.name} </h1>
+              </div>
+               <div className="card_image">
+                  <img src={item.image_thumb_url} />
                 </div>
-                <div className="card_desc">
-                  <div className="card_image">
-                    <img src={item.image_thumb_url} />
-                  </div>
-                  <p> {item.tags} </p>
-                </div>
-              </li>
-            };
+              <div className="card_desc"> 
+                <p> {item.tags} </p>
+                <p>{in_store} </p>
+              </div>
+            </li>
+          };
 
     if (error) {
       return <div>Error: {error.message}</div>;

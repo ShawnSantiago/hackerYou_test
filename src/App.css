@@ -56,6 +56,19 @@ p,span{
 #root ul li .card_image{
   min-height: 300px;
 }
+#root ul li .card_desc {
+  transition: all .3s ease;
+}
+#root ul li .card_desc.hide{
+  height: 0;
+  opacity: 0;
+}
+#root ul li .card_desc.show{
+  height: 100%;
+   opacity: 1;
+}
+
+
 
 #root ul h1 {
   font-size: 20px;
