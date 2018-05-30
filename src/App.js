@@ -44,18 +44,8 @@ class App extends Component {
  
   render() {
     const { error, isLoaded, items } = this.state;
-    function handleClick() {
-      arguments[1].preventDefault();
-      const item_id = arguments[0].id;
-      const element = document.getElementById(item_id).children[2];
-      if (element.classList.contains('show') ) {
-        element.classList.remove('show');
-        element.classList.add('hide')
-      } 
-      else if (element.classList.contains('hide') ){
-        element.classList.remove('hide');
-        element.classList.add('show')
-        fetch("http://lcboapi.com/stores?product_id="+item_id, {
+    const storeLi = (item_id) => {
+      fetch("http://lcboapi.com/stores?product_id="+item_id, {
            method: 'GET', 
            mode: 'cors',
            headers: new Headers({
@@ -67,7 +57,7 @@ class App extends Component {
           (result) => {
             const stores_item = result.result
             const in_stores = stores_item.map(function(item){
-              const element = document.getElementById(item_id).childNodes[2].childNodes[1]
+              const element = document.getElementById(item_id).childNodes[2].childNodes[2]
               // element.append(<li key={item.name}>{item.name}</li>)
               const li_el = document.createElement("li");
               li_el.textContent = item.name
@@ -80,48 +70,39 @@ class App extends Component {
           }
         )
       }
+    function handleClick() {
+      arguments[1].preventDefault();
+      const item_id = arguments[0].id;
+      const element = document.getElementById(item_id).children[2];
+      if (element.classList.contains('show') ) {
+        element.classList.remove('show');
+        element.classList.add('hide')
+      } 
+      else if (element.classList.contains('hide') ){
+        element.classList.remove('hide');
+        element.classList.add('show')
+        storeLi(item_id)
+      }
       else {
         element.classList.add('show')
-        fetch("http://lcboapi.com/stores?product_id="+item_id, {
-           method: 'GET', 
-           mode: 'cors',
-           headers: new Headers({
-           Authorization : "Token MDpkZWJiMjFhYS01ZWUyLTExZTgtODMzMC1jMzU2N2UzNmI4Yjc6cWtCdUxVcnRBVzJwYTNGckZ3YUJmUjN3Y3NHV3F6eDJGdkJU"
-          })
-        })
-        .then(res => res.json())
-        .then(
-          (result) => {
-            const stores_item = result.result
-            const in_stores = stores_item.map(function(item){
-               const element = document.getElementById(item_id).childNodes[2].childNodes[1]
-              const li_el = document.createElement("li");
-              li_el.textContent = item.name
-              element.append(li_el)
-              // console.log(element.append(<li key={item.name}>{item.name}</li>))
-            })
-      
-           // return in_stores
-          }
-        )
+        storeLi(item_id)
       }
-
     }
-
     
     const li = function (item) { 
       // console.log(in_store);
       
       return <li key={item.name} id={item.id} onClick={(e) => handleClick(item, e)}>
-              <div className="card_header">
-                <h1>{item.name} </h1>
-              </div>
+              
                <div className="card_image">
                   <img src={item.image_thumb_url} />
                 </div>
-              <div className="card_desc"> 
+                <div className="card_header">
+                <h1>{item.name} </h1>
+              </div>
+              <div className="card_desc hide"> 
                 <p> {item.tags} </p>
-
+                <h2> Avaiable at these locations: </h2>
                 <ul>
                 </ul>
               </div>
