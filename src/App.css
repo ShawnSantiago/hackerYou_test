@@ -78,6 +78,8 @@ span {
 #root>ul>li .card_image {
     min-height: 415px;
     position: relative;
+    max-width: 300px;
+    margin: auto;
 }
 
 #root>ul>li .card_desc {
