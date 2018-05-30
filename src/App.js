@@ -69,10 +69,13 @@ class App extends Component {
             const in_stores = stores_item.map(function(item){
               const element = document.getElementById(item_id).childNodes[2].childNodes[1]
               // element.append(<li key={item.name}>{item.name}</li>)
-              element.append("<li key="+{item.name}+">"+{item.name}+"</li>")
+              const li_el = document.createElement("li");
+              li_el.textContent = item.name
+              element.append(li_el)
+                console.dir(li_el)
             })
            
-            console.dir(element)
+          
             // return in_stores
           }
         )
@@ -92,7 +95,9 @@ class App extends Component {
             const stores_item = result.result
             const in_stores = stores_item.map(function(item){
                const element = document.getElementById(item_id).childNodes[2].childNodes[1]
-              element.append("<li key="+{item.name}+">"+{item.name}+"</li>")
+              const li_el = document.createElement("li");
+              li_el.textContent = item.name
+              element.append(li_el)
               // console.log(element.append(<li key={item.name}>{item.name}</li>))
             })
       

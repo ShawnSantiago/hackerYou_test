@@ -39,47 +39,47 @@ p,span{
   to { transform: rotate(360deg); }
 }
 
-#root ul {
+#root > ul {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 20px;
 }
 
-#root ul li {
+#root > ul > li {
   min-height: 300px;
   text-decoration: none;
   list-style: none;
 }
-#root ul li .card_header{
+#root > ul > li .card_header{
   min-height: 50px;
 }
-#root ul li .card_image{
+#root > ul > li .card_image{
   min-height: 300px;
 }
-#root ul li .card_desc {
+#root > ul > li .card_desc {
   transition: all .3s ease;
 }
-#root ul li .card_desc.hide{
+#root > ul > li .card_desc.hide{
   height: 0;
   opacity: 0;
 }
-#root ul li .card_desc.show{
+#root > ul > li .card_desc.show{
   height: 100%;
    opacity: 1;
 }
 
 
 
-#root ul h1 {
+#root > ul h1 {
   font-size: 20px;
   text-align: center;
 }
-#root ul li img {
+#root > ul > li img {
   width: 100%;
   padding: 10px 0;
   margin: 0 auto;
    vertical-align: middle;
 }
-#root ul li p{ 
+#root > ul > li p{ 
     text-transform: capitalize;
 }
